@@ -18,39 +18,27 @@ typedef vector<VI> VVI;
 #define MOD 1000000007
 #define INF 999999999
 
-int main() {
-  int n, m, k;
 
-  cin >> n >> m >> k;
 
-  vector<int> a(n);
 
-  for (int i = 0; i < n; i++) {
-
-    cin >> a[i];
-
+int main()
+{
+  ll n,zero=0,idx;
+  cin>>n;
+  ll l[n];
+  forn(k,n)
+  {
+    cin>>l[k];
+    if(l[k]>=0) l[k]=-l[k]-1;
+    if(l[k]<zero)
+    {
+    	zero=l[k];
+    	idx=k;}
   }
-
-  vector<int> diff_array ;
-
-  for (int i = 0; i < n - 1; i++) {
-
-    diff_array.push_back(a[i + 1] - a[i]-1);//(difference array)
-
+  if(n%2)
+   l[idx]=-l[idx]-1;
+  forn(j,n)
+  {
+    cout<<l[j]<<' ';
   }
-
-  sort(diff_array.rbegin(), diff_array.rend());
-
-  int ans = a[n - 1] - a[0] + 1; // max length
-
-  for (int i =0;i<=k-2;i++) {
-
-    ans -= diff_array[i];
-
-  }
-
-  cout << ans << '\n';
-
-  return 0;
-
 }
