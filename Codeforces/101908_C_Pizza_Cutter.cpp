@@ -1,50 +1,75 @@
+// concept of inversion count
+
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-#define pr pair<int,int>
-#define self auto
-#define lli long long 
+#define DEBUG false
+#define debugf if (DEBUG) printf
+#define MAXN 200309
+#define MAXM 900009
+#define ALFA 256
+#define MOD 1000000007
+#define INF 0x3f3f3f3f
+#define INFLL 0x3f3f3f3f3f3f3f3f
+#define EPS 1e-9
+#define PI 3.141592653589793238462643383279502884
+#define FOR(x,n) for(int x=0; (x)<int(n); (x)++)
+#define FOR1(x,n) for(int x=1; (x)<=int(n); (x)++)
+#define REP(x,n) for(int x=int(n)-1; (x)>=0; (x)--)
+#define REP1(x,n) for(int x=(n); (x)>0; (x)--)
+#define pb push_back
+#define pf push_front
+#define fi first
+#define se second
+#define mp make_pair
+#define sz(x) int(x.size())
+#define all(x) x.begin(), x.end()
+#define mset(x,y) memset(&x, (y), sizeof(x))
 using namespace std;
-using namespace __gnu_pbds;
+typedef long long ll;
+typedef unsigned long long ull;
+typedef long double ld;
+typedef unsigned int uint;
+typedef vector<int> vi;
+typedef pair<int, int> ii;
 
-typedef tree<
-    int,
-    null_type,
-    greater<int>,
-    rb_tree_tag,
-    tree_order_statistics_node_update>
-statisticsTree;
+ll inv;
+int arr[MAXN], aux[MAXN];
 
-int main()
-{
-    lli x,y;
-    cin >>x>>y;
-    lli h,v;
-    cin>>h>>v;
-
-    vector<pr> horiz(h), vert(v);
-    for(self &it : horiz)
-        cin >> it.first >> it.second;
-    for(self &it : vert)
-        cin >> it.first >> it.second;
-    sort(horiz.begin(), horiz.end());
-    sort(vert.begin(), vert.end());
-
-    lli cuts_area= h+v+(h*v);
-
-    statisticsTree th, tv;
-
-    for(self &it : horiz)
-    {
-       cuts_area += th.order_of_key(it.second);
-       th.insert(it.second);
+void mergesort(int l, int r) {
+    if (l == r) return;
+    int m = (l + r)/2;
+    mergesort(l, m);
+    mergesort(m+1, r);
+    int i = l, j = m + 1, k = l;
+    while(i <= m && j <= r) {
+        if (arr[i] > arr[j]) {
+            aux[k++] = arr[j++];
+            inv += j - k;
+        }
+        else aux[k++] = arr[i++];
     }
-
-    for(self &it : vert)
-    {
-        cuts_area += tv.order_of_key(it.second);
-        tv.insert(it.second);
-    }
-
-    cout <<cuts_area+1<< endl;
+    while(i <= m) aux[k++] = arr[i++];
+    for(i = l; i < k; i++) arr[i] = aux[i];
 }
+
+ii a[MAXN];
+
+void solve(int n) {
+    FOR(i, n) scanf("%d %d", &a[i].fi, &a[i].se);
+    sort(a, a+n);
+    FOR(i, n) arr[i] = a[i].se;
+    mergesort(0, n-1);
+}
+
+int main() {
+    int x, y;
+    scanf("%d %d", &x, &y);
+    int h, v;
+    scanf("%d %d", &h, &v);
+    inv = (h+1LL)*(v+1LL);
+    solve(h);
+    solve(v);
+    printf("%lld\n", inv);
+    return 0;
+}
+
+//[close]
