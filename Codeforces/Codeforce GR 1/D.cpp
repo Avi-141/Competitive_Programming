@@ -1,4 +1,49 @@
-    #include <bits/stdc++.h>
+#include<bits/stdc++.h>
+#define M 1000010
+using namespace std;
+
+//youtube-coding brothers
+     
+    int n, m, a[M], d[M][5][3];
+     
+    int solve(int x, int y, int z)
+    {
+        if(x > m)
+            return 0;
+        if(d[x][y][z] == -1)
+        {
+            int p = a[x]-y;
+            int q = a[x+1]-z;
+            int r = a[x+2];
+     
+            int res = solve(x+1,z,0)+p/3;
+            if(p>0 && q>0 && r>0)
+                res = max(res, solve(x+1,z+1,1)+1+(p-1)/3);
+            if(p>1 && q>1 && r>1)
+                res = max(res, solve(x+1,z+2,2)+2+(p-2)/3);
+     
+            d[x][y][z] = res;
+        }
+     
+        return d[x][y][z];
+    }
+     
+int main(int argc, char const *argv[]){
+
+        cin>>n>>m;
+        while(n--)
+        {
+            int v;
+            cin>>v;
+            ++a[v];
+        }
+     
+        memset(d, -1, sizeof(d));
+        cout<<solve(1, 0, 0);
+    }
+
+
+/*    #include <bits/stdc++.h>
     #define fi first
     #define se second
     #define sz(x) ((int)(x).size())
@@ -37,53 +82,8 @@
     	
     	return 0;
     }
+*/
 
 
 
-
-
-    /*    #include <cstdio>
-    #include <cstring>
-    #include <algorithm>
-    #define M 1000010
-     
-    using namespace std;
-     
-    int n, m, a[M], d[M][5][3];
-     
-    int f(int x, int y, int z)
-    {
-        if(x > m)
-            return 0;
-        if(d[x][y][z] == -1)
-        {
-            int p = a[x]-y;
-            int q = a[x+1]-z;
-            int r = a[x+2];
-     
-            int res = f(x+1,z,0)+p/3;
-            if(p>0 && q>0 && r>0)
-                res = max(res, f(x+1,z+1,1)+1+(p-1)/3);
-            if(p>1 && q>1 && r>1)
-                res = max(res, f(x+1,z+2,2)+2+(p-2)/3);
-     
-            d[x][y][z] = res;
-        }
-     
-        return d[x][y][z];
-    }
-     
-    int main()
-    {
-        scanf("%d %d", &n, &m);
-        while(n--)
-        {
-            int v;
-            scanf("%d", &v);
-            ++a[v];
-        }
-     
-        memset(d, -1, sizeof(d));
-        printf("%d", f(1, 0, 0));
-        return 0;
-    }*/
+  
