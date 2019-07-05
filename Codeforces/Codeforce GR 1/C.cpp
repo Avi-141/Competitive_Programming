@@ -1,3 +1,5 @@
+// not my solution , the best i found . learnt something new.
+
 #include <algorithm>
 #include <cassert>
 #include <iostream>
