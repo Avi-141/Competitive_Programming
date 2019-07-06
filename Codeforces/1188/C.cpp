@@ -15,8 +15,8 @@ int main()
         	 cin >> candies[i];
              sum[i]=sum[i-1]+candies[i];
          }
-         for(i=0;i<=n;i++)
-         	cout<<sum[i]<<" ";
+         //for(i=0;i<=n;i++)
+         	//cout<<sum[i]<<" ";
         cin >> quer;
         while (quer--)
         {
