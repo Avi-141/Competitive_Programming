@@ -4,7 +4,7 @@ My submissions for problems attempted on websites like codechef,codeforces,hacke
 The files have been saved by the problem name for convinience. 
 
 
-Links to some good Github accounts
+Links to some good CP accounts
 ------
 [Ref1](https://github.com/Ashishgup1/Competitive-Coding)
 <br/>
