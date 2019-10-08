@@ -1,0 +1,109 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+#define TRACE
+
+#ifdef TRACE
+#define trace(...) __f(#__VA_ARGS__, __VA_ARGS__)
+template <typename Arg1>
+void __f(const char* name, Arg1&& arg1){
+	cerr << name << " : " << arg1 << std::endl;
+}
+template <typename Arg1, typename... Args>
+void __f(const char* names, Arg1&& arg1, Args&&... args){
+	const char* comma = strchr(names + 1, ',');cerr.write(names, comma - names) << " : " << arg1<<" | ";__f(comma+1, args...);
+}
+#else
+#define trace(...)
+#endif
+
+#define rep(i, n)    for(int i = 0; i < (n); ++i)
+#define repA(i, a, n)  for(int i = a; i <= (n); ++i)
+#define repD(i, a, n)  for(int i = a; i >= (n); --i)
+#define trav(a, x) for(auto& a : x)
+#define all(x) x.begin(), x.end()
+#define sz(x) (int)(x).size()
+#define fill(a)  memset(a, 0, sizeof (a))
+#define fst first
+#define snd second
+#define mp make_pair
+#define pb push_back
+typedef long double ld;
+typedef long long ll;
+typedef pair<int, int> pii;
+typedef vector<int> vi;
+
+void pre(){
+
+
+}
+int c[100009],e[100009];
+ll gg1[100009],gg2[100009];
+void solve(){
+	int d,s;cin>>d>>s;
+	ll s1=0,s2=0;
+	vector<pair<ld,int>> v1;
+	repA(i,1,s) {
+		cin>>c[i]>>e[i];
+		s1+=c[i],s2+=e[i];
+		v1.pb(mp(ld(e[i])/c[i],i));
+	}
+	sort(all(v1));
+	gg1[0] = 0,gg2[s+1]=0;
+	repA(i,1,s){
+		gg1[i]=gg1[i-1]+c[v1[i-1].snd];
+	}
+	repD(i,s,1){
+		gg2[i] = gg2[i+1]+e[v1[i-1].snd];
+	}
+	rep(q,d){
+		int a,b;cin>>a>>b;
+		if(a>s1||b>s2) {
+			cout<<'N';
+			continue;
+		}
+		if(a==0||b==0){
+			cout<<'Y';
+			continue;
+		
+		}
+		int lo = 1,hi=s;
+		while(lo<hi){
+			int m = (lo+hi)/2;
+			if(gg1[m]>=a){
+				hi = m;
+			}
+			else lo = m+1;
+		}
+		if(gg2[lo+1]>=b){
+			cout<<'Y';
+			continue;
+		}
+		if(gg2[lo]<b){
+			cout<<'N';
+			continue;
+		}
+		ll x = a-gg1[lo-1],y=b-gg2[lo+1];
+		int ix = v1[lo-1].snd;
+		if(x*e[ix]+y*c[ix]<=1ll*c[ix]*e[ix]){
+			cout<<'Y';
+			continue;
+		}
+		else{
+			cout<<'N';
+			continue;
+		}
+	}
+}
+
+int main() {
+	cin.sync_with_stdio(0); cin.tie(0);
+	cin.exceptions(cin.failbit);
+	pre();
+	int n;cin>>n;
+	rep(i,n) cout<<"Case #"<<i+1<<": ",solve(),cout<<'\n';	
+	
+	return 0;
+}
+

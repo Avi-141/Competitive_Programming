@@ -1,0 +1,75 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+#define TRACE
+
+#ifdef TRACE
+#define trace(...) __f(#__VA_ARGS__, __VA_ARGS__)
+template <typename Arg1>
+void __f(const char* name, Arg1&& arg1){
+	cerr << name << " : " << arg1 << std::endl;
+}
+template <typename Arg1, typename... Args>
+void __f(const char* names, Arg1&& arg1, Args&&... args){
+	const char* comma = strchr(names + 1, ',');cerr.write(names, comma - names) << " : " << arg1<<" | ";__f(comma+1, args...);
+}
+#else
+#define trace(...)
+#endif
+
+#define rep(i, n)    for(int i = 0; i < (n); ++i)
+#define repA(i, a, n)  for(int i = a; i <= (n); ++i)
+#define repD(i, a, n)  for(int i = a; i >= (n); --i)
+#define trav(a, x) for(auto& a : x)
+#define all(x) x.begin(), x.end()
+#define sz(x) (int)(x).size()
+#define fill(a)  memset(a, 0, sizeof (a))
+#define fst first
+#define snd second
+#define mp make_pair
+#define pb push_back
+typedef long double ld;
+typedef long long ll;
+typedef pair<int, int> pii;
+typedef vector<int> vi;
+
+void pre(){
+
+
+}
+struct UF {
+	vi e;
+	int tot;
+	UF(int n) : e(n, -1) {tot=n;}
+	bool same_set(int a, int b) { return find(a) == find(b); }
+	int size(int x) { return -e[find(x)]; }
+	int find(int x) { return e[x] < 0 ? x : e[x] = find(e[x]); }
+	void join(int a, int b) {
+		a = find(a), b = find(b);
+		if (a == b) return;
+		if (e[a] > e[b]) swap(a, b);
+		e[a] += e[b]; e[b] = a;tot--;
+	}
+};
+void solve(){
+	int n,m;cin>>n>>m;
+ 	UF dsu(n);
+	rep(i,m){
+		int c,d;cin>>c>>d;c--,d--;
+		dsu.join(c,d);
+	}
+	cout<<n-1+dsu.tot-1;
+
+}
+
+int main() {
+	cin.sync_with_stdio(0); cin.tie(0);
+	cin.exceptions(cin.failbit);
+	pre();
+	int n;cin>>n;
+	rep(i,n) cout<<"Case #"<<i+1<<": ",solve(),cout<<'\n';	
+	
+	return 0;
+}
+
