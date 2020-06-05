@@ -1,0 +1,80 @@
+/* cerberus97 - Hanit Banga */
+
+#include <iostream>
+#include <iomanip>
+#include <cassert>
+#include <cmath>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+#include <map>
+#include <set>
+#include <queue>
+#include <stack>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+#define pb push_back
+#define fast_cin() ios_base::sync_with_stdio(false); cin.tie(NULL)
+
+typedef long long ll;
+typedef long double ld;
+typedef pair <int, int> pii;
+typedef pair <ll, ll> pll;
+
+const int N = 1e5 + 10;
+
+ll apsum(ll a, ll d, ll n);
+
+int main() {
+	fast_cin();
+	int tc; cin >> tc;
+	for (int t = 1; t <= tc; ++t) {
+		cout << "Case #" << t << ": ";
+		ll l, r;
+		cin >> l >> r;
+		ll i = 1, mx = int(2e9 + 42);
+		bool swp = false;
+		if (l >= r) {
+			swap(l, r);
+			swp = true;
+		}
+		ll lo = 1, hi = mx;
+		while (lo <= hi) {
+			ll mid = (lo + hi) / 2;
+			if (r - apsum(1, 1, mid) >= l) {
+				lo = mid + 1;
+			} else {
+				hi = mid - 1;
+			}
+		}
+		r -= apsum(1, 1, lo - 1);
+		if (l == r and !swp) {
+			swp = true;
+		}
+		hi = mx;
+		i = lo;
+		while (lo <= hi) {
+			ll mid = (lo + hi) / 2;
+			ll r_sum = apsum(i, 2, (mid - i + 2) / 2);
+			ll l_sum = apsum(i + 1, 2, (mid - i + 1) / 2);
+			if (l_sum <= l and r_sum <= r) {
+				lo = mid + 1;
+			} else {
+				hi = mid - 1;
+			}
+		}
+		r -= apsum(i, 2, (lo - 1 - i + 2) / 2);
+		l -= apsum(i + 1, 2, (lo - 1 - i + 1) / 2);
+		if (swp) {
+			swap(l, r);
+		}
+		cout << lo - 1 << ' ' << l << ' ' << r << '\n';
+	}
+}
+
+ll apsum(ll a, ll d, ll n) {
+	return (n * (2 * a + (n - 1) * d)) / 2;
+}

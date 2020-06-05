@@ -1,0 +1,28 @@
+First if we pick r red berries and b blue berries from a shrub and use them to fill exactly i baskets ((r+b)MODk=0).
+
+Then if r≥k or b≥k,we can pick k red berries or k blue berries just because they are the same color.So we just need to pick r red and b blue from the same bushes and use them to fill one basket ((r+b)=k).And others can be picked just because they are the same color.
+
+dp[i][j] means considering the first i shrubs if we can pick x red berries (x%k=j) ,y blue berries to fill exactly some baskets((y+x)%k=0).
+
+we can use dp[i][j] to update dp[i+1][c] as follow:
+
+If we pick no berries from the (i+1)th shrub,then dp[i+1][j]=dp[i][j]
+
+else we must pick exactly k berries from the (i+1)th shrub.Let's suppose we pick "a" red and "k-a" blue.The following condition must be satisfied :
+
+0<a<k
+a<=a[i+1]
+k-a<=b[i+1]
+You can easily find that ,the possible "a"s form an array:[max(1,k-b[i+1]),min(k-1,a[i+1])],in the other words dp[i+1][(j+c)%k](c is in the array) |=dp[i][j].
+
+You can used some ways to achieve it in O(1).Like this :
+
+for an array a[1]...a[n] you want to make a[l]...a[r] both increased by 1.You can do as follow:
+
+a[l]++;
+
+a[r+1]--;
+
+After all the process.Set a[i]=a[i]+a[i-1] for all i (from 2 to n).
+
+Final answer can be worked out according to the dp[n][i].
