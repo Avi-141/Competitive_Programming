@@ -1,0 +1,50 @@
+class Vertex:
+
+    def __init__(self, m, n):
+        self.values = [m, n]
+        self.children = (
+            [(2*m)-n, m],
+            [(2*m)+n, m],
+            [m+(2*n), n]
+        )
+
+def generate_coprimes():
+    vertices = [Vertex(3, 1), Vertex(2, 1)]
+    iteration = 0
+    while True:
+        iteration += 1
+        print('Iteration #{}'.format(iteration))
+        new_vertices = []
+        for v in vertices:
+            for c in v.children:
+                print(c)
+                new_vertices.append(Vertex(*c))
+        vertices = new_vertices
+        input()
+
+if __name__ == '__main__':
+generate_coprimes()
+
+
+
+
+
+
+==========================
+from math import sqrt
+def c(N):
+  sqrt_N = int(sqrt(N))
+  indexes = range(1, 1+sqrt_N)
+  for k in xrange(sqrt_N, 0, -1):
+    if indexes[-1] != N // k: indexes.append(N // k)
+  res = {}
+  for n in indexes:
+    tmp = n ** 2
+    if 1 < n:
+      sqrt_n = int(sqrt(n))
+      for l in xrange(1, sqrt_n+1):
+        tmp -= res[l] * (n // l - n // (l+1))
+      for d in xrange(2, 1 + n // (1 + sqrt_n)):
+        tmp -= res[n // d]
+    res[n] = tmp
+  return res[N]

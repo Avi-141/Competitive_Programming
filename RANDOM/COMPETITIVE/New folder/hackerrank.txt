@@ -1,0 +1,10 @@
+https://stackoverflow.com/questions/41999695/gridland-metro-hackerrank-matrix-in-c
+
+
+
+https://github.com/esbanarango/Competitive-Programming/blob/master/HackerRank/Gridland%20Metro.cpp
+
+https://gocodergo.wordpress.com/2017/05/23/hackerrank-gridland-metro/
+
+
+https://stackoverflow.com/questions/42313593/gridland-metro-hackerrank-java/43766646#43766646
