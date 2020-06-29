@@ -1,2 +1,0 @@
-http://www.sunshine2k.de/coding/java/PointOnLine/PointOnLine.html
-https://www.codechef.com/viewsolution/9228661
